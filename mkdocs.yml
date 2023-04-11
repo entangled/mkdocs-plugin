@@ -1,0 +1,10 @@
+site_name: MkDocs Entangled plugin
+
+plugins:
+  - entangled
+
+markdown_extensions:
+  - pymdownx.superfences
+
+theme:
+  name: material

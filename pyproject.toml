@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "mkdocs-entangled-plugin"
+version = "0.1.0"
+description = "Plugin for MkDocs helping with rendering Entangled (entangled.github.io) projects."
+authors = ["Johan Hidding <j.hidding@esciencecenter.nl>"]
+license = "Apache 2.0"
+packages = [
+    { include = "mkdocs_entangled" }
+]
+
+[tool.poetry.plugins."mkdocs.plugins"]
+entangled = "mkdocs_entangled:EntangledPlugin"
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+mkdocs = "^1.4.2"
+
+[tool.poetry.dev-dependencies]
+mypy = "^1.2.0"
+pytest = "^7.3.0"
+pytest-mypy = "^0.10.3"
+mkdocs-material = "^9.1.6"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = ["--mypy"]
+testpaths = [
+    "test"
+]
+
+[tool.mypy]
+packages = ["mkdocs_entangled"]
