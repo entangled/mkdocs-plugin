@@ -11,16 +11,18 @@ plugins:
 
 markdown_extensions:
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
 ```
 
 ## Annotates codeblocks
 The default markdown syntax that Entangled supports has fenced code blocks as follows
 
 ~~~markdown
- ``` {.python file=hello_world.py}
- if __name__ == "__main__":
-     <<hello-world>>
- ```
+``` {.python file=hello_world.py}
+if __name__ == "__main__":
+    <<hello-world>>
+```
 ~~~
 
 Which renders like this:
@@ -33,9 +35,9 @@ if __name__ == "__main__":
 Or named code blocks
 
 ~~~markdown
- ``` {.python #hello-world}
- print("Hello, World!")
- ```
+``` {.python #hello-world}
+print("Hello, World!")
+```
 ~~~
 
 that render like this:
@@ -43,6 +45,40 @@ that render like this:
 ``` {.python #hello-world}
 print("Hello, World!")
 ```
+
+## Build Artifacts
+
+Build artifacts by specifying a Makefile.
+
+~~~markdown
+=== "Figure 1"
+
+    ![](fig/plot.svg)
+
+=== "Makefile"
+
+    ``` {.make .build-artifact}
+    .RECIPEPREFIX = >
+  
+    docs/fig/plot.svg:
+    > mkdir -p $(@D)
+    > gnuplot -e "set term svg; plot sin(x)" > $@
+    ```
+~~~
+
+=== "Figure 1"
+
+    ![](fig/plot.svg)
+
+=== "Makefile"
+
+    ``` {.make .build-artifact}
+    .RECIPEPREFIX = >
+  
+    docs/fig/plot.svg:
+    > mkdir -p $(@D)
+    > gnuplot -e "set term svg; plot sin(x)" > $@
+    ```
 
 ## License
 Licensed under the Apache-2 license agreement: see LICENSE
