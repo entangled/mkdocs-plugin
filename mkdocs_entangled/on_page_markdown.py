@@ -1,3 +1,4 @@
+from typing import Optional
 from dataclasses import dataclass
 from pathlib import Path
 import re
@@ -33,9 +34,9 @@ class EntangledFilter(mawk.RuleSet):
         return [m[0]]
 
     @mawk.on_match(r"(\s*)``` *\{([^}]*)\}")
-    def open_code_block(self, m: re.Match) -> list[str]:
+    def open_code_block(self, m: re.Match) -> Optional[list[str]]:
         if self._ignore:
-            return
+            return None
 
         indent = m[1]
         props = list(read_properties(m[2]))
@@ -59,7 +60,7 @@ class EntangledFilter(mawk.RuleSet):
         
         if self.build_artifacts and Class("build-artifact") in props:
             self._collect_make_script = True
-            self._make_script = []
+            self._make_script: list[str] = []
             self._make_props = props
             self._indent = indent
 
@@ -67,26 +68,22 @@ class EntangledFilter(mawk.RuleSet):
         return [f"{indent}``` {{{prop_str}}}"]
 
     @mawk.on_match(r"\s*```\s*$")
-    def close_code_block(self, m: re.Match) -> list[str]:
-        if self._ignore:
-            return
-
-        if self._collect_make_script:
+    def close_code_block(self, m: re.Match) -> Optional[list[str]]:
+        if not self._ignore and self._collect_make_script:
             self._collect_make_script = False
             script = "\n".join(self._make_script)
-            with tempfile.TemporaryDirectory() as tmpdir:
-                tmpdir = Path(tmpdir)
+            with tempfile.TemporaryDirectory() as _tmpdir:
+                tmpdir = Path(_tmpdir)
                 with open(tmpdir / "Makefile", "w") as makefile:
                     makefile.write(script)
                 subprocess.run(["make", "-f", str(tmpdir / "Makefile")])
+        return None
 
     @mawk.always
-    def add_line_to_script(self, line: str) -> list[str]:
-        if self._ignore:
-            return
-        
-        if self._collect_make_script:
+    def add_line_to_script(self, line: str) -> Optional[list[str]]:
+        if not self._ignore and self._collect_make_script:
             self._make_script.append(line.removeprefix(self._indent))
+        return None
 
 
 def on_page_markdown(markdown: str, *, page: Page, config: MkDocsConfig, files: Files) -> str:
