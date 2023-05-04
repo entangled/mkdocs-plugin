@@ -21,11 +21,11 @@ This plugin bundles functionality for literate programming with Entangled.
 - Annotate code blocks with titles.
 - Build artifacts using Make.
 
-### Annotates code blocks
+### Annotate code blocks
 The default markdown syntax that Entangled supports has fenced code blocks as follows
 
 ~~~markdown
-``` {.python file=hello_world.py}
+``` {.python file=examples/hello_world.py}
 if __name__ == "__main__":
     <<hello-world>>
 ```
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
 Which renders like this:
 
-``` {.python file=hello_world.py}
+``` {.python file=examples/hello_world.py}
 if __name__ == "__main__":
     <<hello-world>>
 ```
