@@ -1,4 +1,6 @@
 site_name: MkDocs Entangled plugin
+site_url: https://entangled.github.io/mkdocs-plugin
+repo_url: https://github.com/entangled/mkdocs-plugin
 
 plugins:
   - entangled

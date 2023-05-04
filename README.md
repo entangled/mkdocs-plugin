@@ -15,7 +15,13 @@ markdown_extensions:
       alternate_style: true 
 ```
 
-## Annotates codeblocks
+## Components
+This plugin bundles functionality for literate programming with Entangled.
+
+- Annotate code blocks with titles.
+- Build artifacts using Make.
+
+### Annotates code blocks
 The default markdown syntax that Entangled supports has fenced code blocks as follows
 
 ~~~markdown
@@ -46,7 +52,7 @@ that render like this:
 print("Hello, World!")
 ```
 
-## Build Artifacts
+### Build Artifacts
 
 Build artifacts by specifying a Makefile.
 
