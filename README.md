@@ -61,14 +61,18 @@ Build artifacts by specifying a Makefile.
 
     ![](fig/plot.svg)
 
-=== "Makefile"
+=== "Source"
+
+    ``` {.gnuplot file=examples/plot.gp}
+    # enter your plotting commands here
+    ```
 
     ``` {.make .build-artifact}
     .RECIPEPREFIX = >
   
-    docs/fig/plot.svg:
+    docs/fig/plot.svg: examples/plot.gp
     > mkdir -p $(@D)
-    > gnuplot -e "set term svg; plot sin(x)" > $@
+    > gnuplot $^ > $@
     ```
 ~~~
 
@@ -76,14 +80,26 @@ Build artifacts by specifying a Makefile.
 
     ![](fig/plot.svg)
 
-=== "Makefile"
+=== "Source"
+
+    ``` {.gnuplot file=examples/plot.gp}
+    set term svg background rgb 'white' size 700, 500
+    sinc(r) = sin(pi*r) / (pi*r)
+    set isosamples 50, 50
+    set hidden3d
+    set xrange [-4:4]
+    set yrange [-4:4]
+    set xyplane 0
+    set title "Sinc function"
+    splot sinc(sqrt(x**2 + y**2)) t'' lc rgb '#5533cc'
+    ```
 
     ``` {.make .build-artifact}
     .RECIPEPREFIX = >
   
-    docs/fig/plot.svg:
+    docs/fig/plot.svg: examples/plot.gp
     > mkdir -p $(@D)
-    > gnuplot -e "set term svg; plot sin(x)" > $@
+    > gnuplot $^ > $@
     ```
 
 ## License
