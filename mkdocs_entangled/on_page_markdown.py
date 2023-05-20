@@ -1,26 +1,18 @@
 from typing import Optional
 from dataclasses import dataclass
-from pathlib import Path
 import re
-import tempfile
-import subprocess
-import sys
 
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.structure.pages import Page
 from mkdocs.structure.files import Files
 
-from .config import EntangledConfig
-from .properties import read_properties, Id, Attribute, Class
+from .properties import read_properties, Id, Attribute
 from . import mawk
 
 
 @dataclass
 class EntangledFilter(mawk.RuleSet):
     add_title: bool = True
-    build_artifacts: bool = True
-
-    _collect_make_script: bool = False
     _ignore: bool = False
 
     @mawk.on_match(r"~~~markdown")
@@ -58,31 +50,11 @@ class EntangledFilter(mawk.RuleSet):
             if title is not None:
                 props.append(Attribute("title", title))
         
-        if self.build_artifacts and Class("build-artifact") in props:
-            self._collect_make_script = True
-            self._make_script: list[str] = []
-            self._make_props = props
-            self._indent = indent
-
         prop_str = " ".join(str(p) for p in props)
         return [f"{indent}``` {{{prop_str}}}"]
 
     @mawk.on_match(r"\s*```\s*$")
     def close_code_block(self, m: re.Match) -> Optional[list[str]]:
-        if not self._ignore and self._collect_make_script:
-            self._collect_make_script = False
-            script = "\n".join(self._make_script)
-            with tempfile.TemporaryDirectory() as _tmpdir:
-                tmpdir = Path(_tmpdir)
-                with open(tmpdir / "Makefile", "w") as makefile:
-                    makefile.write(script)
-                subprocess.run(["make", "-f", str(tmpdir / "Makefile")])
-        return None
-
-    @mawk.always
-    def add_line_to_script(self, line: str) -> Optional[list[str]]:
-        if not self._ignore and self._collect_make_script:
-            self._make_script.append(line.removeprefix(self._indent))
         return None
 
 
