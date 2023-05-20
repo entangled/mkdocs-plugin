@@ -49,7 +49,7 @@ print("Hello, World!")
 that render like this:
 
 ``` {.python #hello-world}
-print("Hello, World!")
+print("Hello, Universe!")
 ```
 
 ### Build Artifacts

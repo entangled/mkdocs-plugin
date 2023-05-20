@@ -15,7 +15,7 @@ entangled = "mkdocs_entangled:EntangledPlugin"
 [tool.poetry.dependencies]
 python = "^3.11"
 mkdocs = "^1.4.2"
-entangled-cli = "^2.0.0a2"
+entangled-cli = {path = "../entangled.py", extras = ["rich"], develop = true}
 
 [tool.poetry.dev-dependencies]
 mypy = "^1.2.0"

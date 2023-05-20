@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0-alpha-3",
+  "files": [
+    {
+      "path": "README.md",
+      "deps": null,
+      "modified": "2023-05-20T15:45:38.374816",
+      "hexdigest": "dead468bea87407e2e6a7b229e76c812a231e0f6289eddf171ba8bd0534e364c"
+    },
+    {
+      "path": "docs/setup.md",
+      "deps": null,
+      "modified": "2023-05-20T22:27:47.967531",
+      "hexdigest": "b011aa8d3e2046e683f453207e112b1fd47f67f6117b1f98fea4eb46da5d0549"
+    },
+    {
+      "path": "examples/hello_world.py",
+      "deps": [
+        "docs/index.md"
+      ],
+      "modified": "2023-05-20T15:50:49.652413",
+      "hexdigest": "66e79b50c625e5edddbe3e1c1222b74ce0e5f776abc43ea6366816544219fc45"
+    },
+    {
+      "path": "docs/index.md",
+      "deps": null,
+      "modified": "2023-05-20T22:25:25.108970",
+      "hexdigest": "860d6dfc07cd8246a7fdb0c425eb6217677ef9006f84693c630b4faaf90bfcce"
+    },
+    {
+      "path": "examples/plot.gp",
+      "deps": [
+        "docs/index.md"
+      ],
+      "modified": "2023-05-20T22:13:50.926594",
+      "hexdigest": "e0a44680408c7b2b7c4fec1551d0a6a835df6ecd0c1d68a758b43c2ef89ea29e"
+    }
+  ],
+  "source": [],
+  "target": [
+    "examples/plot.gp",
+    "examples/hello_world.py"
+  ]
+}

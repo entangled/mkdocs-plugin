@@ -15,7 +15,7 @@ You may want to setup a virtual environment to install MkDocs into. Even if your
 ```sh
 poetry init
 # <<follow the gentle instructions>>
-poetry add -D mkdocs mkdocs-material mkdocs-entangled-plugin
+poetry add -D mkdocs mkdocs-material entangled-cli[rich] mkdocs-entangled-plugin
 poetry shell
 ```
 
@@ -54,43 +54,24 @@ mkdocs serve
 This will start a build loop and web server. That means that every time one of the source files change, MkDocs will compile the Markdown to HTML and the browser will automatically refresh.
 
 ## Setup Entangled
-If you haven't yet installed Entangled, follow the instructions here, otherwise continue.
+Entangled will work without any additional configuration in `entangled.toml`. The default config monitors the entire source repository for Markdown files. Files that are extracted from the Markdown are also watched for changes. If you'd like to limit the scope of Markdown files that are monitored, you can set `watch_list` to a list of glob patterns. For MkDocs projects it makes sense to set `watch_list = [ "docs/**/*.md" ]`.
 
-<details markdown="block">
-<summary>Howto install Entangled</summary>
-Entangled needs the Glasgow Haskell Compiler to build. The best way to install GHC is through [GHCUp](https://www.haskell.org/ghcup/). Then, run the following commands:
+To enable building artifacts add the `build` hook, by setting `hooks = ["build"]`.
 
-```sh
-git clone https://github.com/entangled/entangled.git
-cd entangled
-cabal build
-cabal install
-```
-</details>
+The complete configuration then looks like this:
 
-Make sure to go to your awesome project folder (remember, the MkDocs build-and-serve loop is still running in your other terminal).
-To setup Entangled, start with an initial config
-
-```sh
-entangled config -m > entangled.dhall
+``` {.toml file=examples/entangled.toml}
+version = "2.0"
+watch_list = ["docs/**/*.md"]
+hooks = ["build"]
 ```
 
-Then, edit these settings to look like this.
+Entangled runs as a pre-build action in MkDocs. So, you may want to add your generated source files in the watch list of MkDocs. Assuming your source files are in `./src`:
 
-```dhall
-let entangled = https://raw.githubusercontent.com/entangled/entangled/v1.2.2/data/config-schema.dhall
-                sha256:9bb4c5649869175ad0b662d292fd81a3d5d9ccb503b1c7e316d531b7856fb096
-
-in { entangled = entangled.Config ::
-        { watchList = [ "docs/*.md" ] : List Text
-        }
-   }
-```
-
-Run the Entangled daemon.
-
-```sh
-entangled daemon
+```yaml
+watch:
+  - docs
+  - src
 ```
 
 ## Extras
@@ -125,6 +106,26 @@ extra_javascript:
 
 You'll also need to create `docs/js/mathjax.jl`.
 
+```js
+window.MathJax = {
+  tex: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    ignoreHtmlClass: ".*|",
+    processHtmlClass: "arithmatex"
+  }
+};
+
+document$.subscribe(() => {
+  MathJax.typesetPromise();
+})
+```
+
 ### Dark mode
 You can enable a dark-mode toggle by adding to your `mkdocs.yml`
 
@@ -145,8 +146,10 @@ theme:
         name: Switch to light mode
 ```
 
-## Github Actions
+### Github Actions
 You may want to use Github Actions to deploy the website. I use the following `.github/workflows/deploy-pages.yaml`:
+
+<details><summary>Deploy Pages action</summary>
 
 ```yaml
 name: Deploy Pages
@@ -196,6 +199,8 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
 ```
+
+</details>
 
 ## Commit
 Don't forget to create a `README.md`, `LICENSE`, and later on a `CITATION.cff`. You may want to add `poetry.lock` to `.gitignore`.
