@@ -213,7 +213,7 @@ You should be good to go! A fresh Entangled/MkDocs project should have the follo
 │   ├── index.md
 │   └── js
 │       └── mathjax.js
-├── entangled.dhall
+├── entangled.toml
 ├── LICENSE
 ├── mkdocs.yml
 ├── pyproject.toml
@@ -228,3 +228,9 @@ git commit -m 'initial commit'
 git remote add origin git@github.com:joeplummer/my-awesome-project.git
 git push -u origin main
 ```
+
+## Resources
+
+- [mkdocs-macros](https://mkdocs-macros-plugin.readthedocs.io/en/latest/) is a plugin for using Jinja syntax to create macros. This also let's you `{% include "..." %}` external files.
+- [mkdocs-material](https://squidfunk.github.io/mkdocs-material/) is a nice theme for MkDocs, and has many features for non-standard elements.
+- [mkdocs-bibtex](https://github.com/shyamd/mkdocs-bibtex/) adds citation management through bibtex.

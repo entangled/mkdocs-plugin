@@ -10,8 +10,8 @@
     {
       "path": "docs/setup.md",
       "deps": null,
-      "modified": "2023-05-21T00:55:28.345535",
-      "hexdigest": "b011aa8d3e2046e683f453207e112b1fd47f67f6117b1f98fea4eb46da5d0549"
+      "modified": "2023-05-21T19:42:18.759752",
+      "hexdigest": "e56cec2fb11ac9540a06a92996e6b9ac6424c699dc1e6d6f33138f243a94d949"
     },
     {
       "path": "examples/hello_world.py",
