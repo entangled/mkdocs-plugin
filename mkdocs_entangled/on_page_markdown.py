@@ -7,7 +7,7 @@ from mkdocs.structure.pages import Page
 from mkdocs.structure.files import Files
 
 from .properties import read_properties, Id, Attribute
-from . import mawk
+import mawk
 
 
 @dataclass
