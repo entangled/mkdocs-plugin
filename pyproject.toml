@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mkdocs-entangled-plugin"
-version = "0.3.0"
+version = "0.4.0"
 description = "Plugin for MkDocs helping with rendering Entangled (entangled.github.io) projects."
 readme = "README.md"
 authors = ["Johan Hidding <j.hidding@esciencecenter.nl>"]
