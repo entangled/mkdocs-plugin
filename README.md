@@ -1,6 +1,9 @@
 # Welcome to MkDocs Entangled Plugin
 Using this plugin, you can make your Entangled documents look better.
 
+## Examples
+Detailed examples are found in the [entangled/mkdocs-examples repository](https://entangled.github.io/mkdocs-examples).
+
 ## Install
 
 Install this with `pip install mkdocs-entangled-plugin`. To use the entangled plugin, add the following lines to your `mkdocs.yml`:
@@ -14,6 +17,8 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true 
 ```
+
+For more information, see [the documentation](https://entangled.github.io/mkdocs-plugin).
 
 ## Components
 This plugin bundles functionality for literate programming with Entangled.
