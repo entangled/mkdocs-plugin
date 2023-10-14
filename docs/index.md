@@ -9,10 +9,6 @@ Detailed examples are found in the [entangled/mkdocs-examples repository](https:
 Install this with `pip install mkdocs-entangled-plugin`. To use the entangled plugin, add the following lines to your `mkdocs.yml`:
 
 ```yaml
-watch:
-  - docs       # watch markdown sources
-  - src        # add your src directories to watch
-
 plugins:
   - entangled  # this also runs `entangled sync` as a pre-build action
 
@@ -34,7 +30,6 @@ hooks = ["build"]
 This plugin bundles functionality for literate programming with Entangled.
 
 - Annotate code blocks with titles.
-- Run entangled as part of `mkdocs serve` cycle
 
 ### Annotate code blocks
 The default markdown syntax that Entangled supports has fenced code blocks as follows
@@ -66,52 +61,6 @@ that render like this:
 ``` {.python #hello-world}
 print("Hello, World!")
 ```
-
-### Build Artifacts
-
-Build artifacts by specifying a Makefile.
-
-~~~markdown
-=== "Figure 1"
-
-    ![](fig/plot.svg)
-
-=== "Source"
-
-    ``` {.gnuplot file=examples/plot.gp}
-    # enter your plotting commands here
-    ```
-
-    ``` {.make #build target=docs/fig/plot.svg}
-    docs/fig/plot.svg: examples/plot.gp
-    > mkdir -p $(@D)
-    > gnuplot $^ > $@
-    ```
-~~~
-
-=== "Figure 1"
-
-    ![](fig/plot.svg)
-
-=== "Source"
-
-    ``` {.gnuplot file=examples/plot.gp}
-    set term svg background rgb 'white' size 700, 500
-    sinc(r) = sin(pi*r) / (pi*r)
-    set isosamples 50, 50
-    set hidden3d
-    set xrange [-4:4]
-    set yrange [-4:4]
-    set xyplane 0
-    set title "Sinc function"
-    splot sinc(sqrt(x**2 + y**2)) t'' lc rgb '#5533cc'
-    ```
-
-    ``` {.make #build target=docs/fig/plot.svg}
-    docs/fig/plot.svg: examples/plot.gp
-    > mkdir -p $(@D)
-    > gnuplot $^ > $@
-    ```
 
 ## License
 Licensed under the Apache-2 license agreement: see LICENSE
