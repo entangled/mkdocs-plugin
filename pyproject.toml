@@ -20,7 +20,8 @@ dev = [
     "mypy>=1.2.0,<2",
     "pytest>=7.3.0,<8",
     "pytest-mypy>=0.10.3,<0.11",
-    "mkdocs-material>=9.1.6,<10"
+    "mkdocs-material>=9.1.6,<10",
+    "pyright>=1.1.406",
 ]
 
 [tool.hatch.build.targets.sdist]
