@@ -1,7 +1,9 @@
+# ~/~ begin <<docs/setup.md#examples/entangled.toml>>[init]
 version = "2.0"
 watch_list = ["docs/**/*.md"]
-hooks = ["build", "repl"]
+hooks = ["repl"]
 
+# ~/~ begin <<docs/setup.md#repl-config>>[init]
 [hook.repl.config.Lua]
 command = "lua"
 first_prompt = "> "
@@ -9,3 +11,5 @@ change_prompt = '_PROMPT = "{key}> "; _PROMPT2 = "{key}+ "'
 prompt = "{key}> "
 continuation_prompt = "{key}\\+ "
 strip_ansi = true
+# ~/~ end
+# ~/~ end

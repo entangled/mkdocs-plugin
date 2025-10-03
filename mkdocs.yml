@@ -6,10 +6,11 @@ plugins:
   - entangled
 
 markdown_extensions:
+  - attr_list
   - pymdownx.superfences
   - pymdownx.extra
   - pymdownx.tabbed:
-      alternate_style: true 
+      alternate_style: true
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -17,11 +18,11 @@ markdown_extensions:
 
 theme:
   name: material
-  palette: 
+  palette:
     # Palette toggle for light mode
     - scheme: default
       toggle:
-        icon: material/brightness-7 
+        icon: material/brightness-7
         name: Switch to dark mode
 
     # Palette toggle for dark mode

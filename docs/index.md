@@ -13,9 +13,10 @@ plugins:
   - entangled  # this also runs `entangled sync` as a pre-build action
 
 markdown_extensions:
+  - attr_list
   - pymdownx.superfences
   - pymdownx.tabbed:
-      alternate_style: true 
+      alternate_style: true
 ```
 
 Also create `entangled.toml`, the `version` field is obligatory.
@@ -23,13 +24,14 @@ Also create `entangled.toml`, the `version` field is obligatory.
 ```toml
 version = "2.0"
 watch_list = ["docs/**/*.md"]
-hooks = ["build"]
+hooks = ["repl"]
 ```
 
 ## Components
 This plugin bundles functionality for literate programming with Entangled.
 
 - Annotate code blocks with titles.
+- Insert results from `repl-session`.
 
 ### Annotate code blocks
 The default markdown syntax that Entangled supports has fenced code blocks as follows

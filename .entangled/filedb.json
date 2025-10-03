@@ -1,44 +1,56 @@
 {
-  "version": "2.0.0-alpha-3",
   "files": [
     {
-      "path": "README.md",
       "deps": null,
-      "modified": "2023-05-20T15:45:38.374816",
-      "hexdigest": "dead468bea87407e2e6a7b229e76c812a231e0f6289eddf171ba8bd0534e364c"
-    },
-    {
-      "path": "docs/setup.md",
-      "deps": null,
-      "modified": "2023-05-21T19:42:18.759752",
-      "hexdigest": "e56cec2fb11ac9540a06a92996e6b9ac6424c699dc1e6d6f33138f243a94d949"
-    },
-    {
-      "path": "examples/hello_world.py",
-      "deps": [
-        "docs/index.md"
-      ],
-      "modified": "2023-05-20T15:50:49.652413",
-      "hexdigest": "66e79b50c625e5edddbe3e1c1222b74ce0e5f776abc43ea6366816544219fc45"
-    },
-    {
+      "hexdigest": "5a199ccde2b8e71f83105c9c8d8991a2330abc5cfc35ecaddc99202a0126f616",
+      "modified": "2025-10-03T14:12:18.980572",
       "path": "docs/index.md",
-      "deps": null,
-      "modified": "2023-05-20T22:25:25.108970",
-      "hexdigest": "860d6dfc07cd8246a7fdb0c425eb6217677ef9006f84693c630b4faaf90bfcce"
+      "size": 1444
     },
     {
-      "path": "examples/plot.gp",
+      "deps": null,
+      "hexdigest": "aca9aaefe77198c38904af9b3b10b40cec5f6ccdab88630ccf634e5d09d1cff3",
+      "modified": "2025-10-03T14:11:22.118375",
+      "path": "docs/setup.md",
+      "size": 8610
+    },
+    {
+      "deps": [
+        "docs/setup.md"
+      ],
+      "hexdigest": "92862e6cb986fb6bed9b6c74cb54af86ccfd80d0e245af0569905ce005b3b92a",
+      "modified": "2025-10-03T14:11:28.015952",
+      "path": "examples/entangled.toml",
+      "size": 382
+    },
+    {
       "deps": [
         "docs/index.md"
       ],
-      "modified": "2023-05-20T22:13:50.926594",
-      "hexdigest": "e0a44680408c7b2b7c4fec1551d0a6a835df6ecd0c1d68a758b43c2ef89ea29e"
+      "hexdigest": "66e79b50c625e5edddbe3e1c1222b74ce0e5f776abc43ea6366816544219fc45",
+      "modified": "2025-10-03T13:40:25.520753",
+      "path": "examples/hello_world.py",
+      "size": 189
+    },
+    {
+      "deps": [],
+      "hexdigest": "320ddf2659f09b1f60a03408016487064e8b3754fa96a4355ad6a7b9bbec553c",
+      "modified": "2025-10-03T14:11:28.024507",
+      "path": "examples/lua-session.json",
+      "size": 545
+    },
+    {
+      "deps": [],
+      "hexdigest": "ca3da004e36b672abfbee4274ce33486ab6c7cd6585c3830dc55eb0582629a06",
+      "modified": "2025-10-03T13:42:28.370463",
+      "path": "test/lua-session.json",
+      "size": 546
     }
   ],
   "source": [],
   "target": [
-    "examples/plot.gp",
+    "examples/entangled.toml",
     "examples/hello_world.py"
-  ]
+  ],
+  "version": "2.2.0"
 }

@@ -1,33 +1,37 @@
-[tool.poetry]
+[project]
 name = "mkdocs-entangled-plugin"
 version = "0.4.0"
 description = "Plugin for MkDocs helping with rendering Entangled (entangled.github.io) projects."
+authors = [{ name = "Johan Hidding", email = "j.hidding@esciencecenter.nl" }]
+requires-python = ">=3.12,<4"
 readme = "README.md"
-authors = ["Johan Hidding <j.hidding@esciencecenter.nl>"]
-license = "Apache 2.0"
-packages = [
-    { include = "mkdocs_entangled" }
+license = "Apache-2.0"
+dependencies = [
+    "mkdocs>=1.4.2,<2",
+    "entangled-cli>=2.2,<3",
+    "mawk>=0.1.7,<0.2",
 ]
 
-[tool.poetry.plugins."mkdocs.plugins"]
+[project.entry-points."mkdocs.plugins"]
 entangled = "mkdocs_entangled:EntangledPlugin"
 
-[tool.poetry.dependencies]
-python = "^3.11"
-mkdocs = "^1.4.2"
-entangled-cli = "^2.0.0a6"
-mawk = "^0.1.4"
+[dependency-groups]
+dev = [
+    "mypy>=1.2.0,<2",
+    "pytest>=7.3.0,<8",
+    "pytest-mypy>=0.10.3,<0.11",
+    "mkdocs-material>=9.1.6,<10"
+]
 
-[tool.poetry.dev-dependencies]
-mypy = "^1.2.0"
-pytest = "^7.3.0"
-pytest-mypy = "^0.10.3"
-mkdocs-material = "^9.1.6"
-twine = "^4.0.2"
+[tool.hatch.build.targets.sdist]
+include = ["mkdocs_entangled"]
+
+[tool.hatch.build.targets.wheel]
+include = ["mkdocs_entangled"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.pytest.ini_options]
 addopts = ["--mypy"]
