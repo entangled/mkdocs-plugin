@@ -8,17 +8,11 @@ from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.structure.pages import Page
 from mkdocs.structure.files import Files
 
-from entangled.document import ReferenceMap, Content, PlainText, ReferenceId, CodeBlock, document_to_text
-from entangled.properties import get_attribute, Id, Attribute, Class
-from entangled.hooks import get_hooks
-from entangled.config import config
+from entangled.model import ReferenceMap, Content, PlainText, ReferenceId, CodeBlock, content_to_text
+from entangled.model.properties import get_attribute, Id, Attribute, Class
+from entangled.config import ConfigUpdate, read_config
+from entangled.interface import Context, read_markdown
 from repl_session import read_session
-
-config.read()
-
-# The Entangled config needs to be read before importing the Markdown reader
-# This is very bad I know, and should be fixed in some future version.
-from entangled.markdown_reader import read_markdown_string
 
 
 type ContentFilter = Callable[[ReferenceMap, Content], Iterable[Content]]
@@ -35,6 +29,10 @@ def codeblock_filter(f: CodeBlockFilter) -> ContentFilter:
     return _foo
 
 
+def document_to_text(refs: ReferenceMap, content: Iterable[Content]) -> str:
+    return "".join(map(lambda c: content_to_text(refs, c)[0], content))
+
+
 def iter_bind[T, U](lst: Iterable[T], f: Callable[[T], Iterable[U]]) -> Iterable[U]:
     return chain(*map(f, lst))
 
@@ -49,9 +47,10 @@ def compose_filters(*args: ContentFilter) -> ContentFilter:
     return reduce(compose_filter, args, lambda _, c: [c])
 
 
-def read_markdown(text: str) -> tuple[ReferenceMap, list[Content]]:
-    hooks = get_hooks()
-    return read_markdown_string(text, hooks=hooks)
+def read_single_markdown(ctx: Context, text: str) -> tuple[ReferenceMap, list[Content]]:
+    refs = ReferenceMap()
+    content, _ = read_markdown(ctx, refs, text)
+    return refs, content
 
 
 @codeblock_filter
@@ -60,7 +59,7 @@ def add_title(reference_map: ReferenceMap, r: ReferenceId) -> list[Content]:
     Changes the `open_line` member of a `CodeBlock` to reflect accepted
     MkDocs syntax, adding a `title` attribute.
     """
-    codeblock: CodeBlock = reference_map.get_codeblock(r)
+    codeblock: CodeBlock = reference_map[r]
 
     ids = [p.value for p in codeblock.properties if isinstance(p, Id)]
     classes = [p.value for p in codeblock.properties if isinstance(p, Class)]
@@ -93,7 +92,7 @@ def add_title(reference_map: ReferenceMap, r: ReferenceId) -> list[Content]:
         if title:
             open_line += " " + str(Attribute("title", title))
 
-        open_line += "}"
+        open_line += "}\n"
 
     codeblock.open_line = open_line
     return [r]
@@ -104,11 +103,12 @@ def include_repl_output(reference_map: ReferenceMap, r: ReferenceId) -> list[Con
     """
     Takes any codeblock that has the `repl` class and append its pre-computed output.
     """
-    codeblock: CodeBlock = reference_map.get_codeblock(r)
+    codeblock: CodeBlock = reference_map[r]
     if Class("repl") not in codeblock.properties:
         return [r]
 
-    first: CodeBlock = next(iter(reference_map.by_name(r.name)))
+    ref = next(iter(reference_map.select_by_name(r.name)))
+    first: CodeBlock = reference_map[ref]
     session_filename = get_attribute(first.properties, "session")
     assert session_filename is not None
     session_path: Path = Path(session_filename)
@@ -132,6 +132,7 @@ def include_repl_output(reference_map: ReferenceMap, r: ReferenceId) -> list[Con
 
 
 def on_page_markdown(markdown: str, *, page: Page, config: MkDocsConfig, files: Files) -> str:
-    reference_map, content = read_markdown(markdown)
+    context = Context() | read_config()
+    reference_map, content = read_single_markdown(context, markdown)
     filtered_content = iter_bind(content, partial(compose_filters(add_title, include_repl_output), reference_map))
     return document_to_text(reference_map, filtered_content)

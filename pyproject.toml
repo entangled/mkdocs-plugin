@@ -1,6 +1,6 @@
 [project]
 name = "mkdocs-entangled-plugin"
-version = "0.5.0"
+version = "0.6.0"
 description = "Plugin for MkDocs helping with rendering Entangled (entangled.github.io) projects."
 authors = [{ name = "Johan Hidding", email = "j.hidding@esciencecenter.nl" }]
 requires-python = ">=3.12,<4"
@@ -8,7 +8,7 @@ readme = "README.md"
 license = "Apache-2.0"
 dependencies = [
     "mkdocs>=1.4.2,<2",
-    "entangled-cli>=2.2,<3",
+    "entangled-cli>=2.4,<3",
     "mawk>=0.1.7,<0.2",
 ]
 
@@ -42,3 +42,4 @@ testpaths = [
 
 [tool.mypy]
 packages = ["mkdocs_entangled"]
+
