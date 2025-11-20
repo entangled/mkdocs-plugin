@@ -192,7 +192,7 @@ wheels = [
 [[package]]
 name = "entangled-cli"
 version = "2.4.0"
-source = { git = "https://github.com/entangled/entangled.py#bf6ddba64593d4d4d7f2df1e1c41ee2d0d276ce2" }
+source = { git = "https://github.com/entangled/entangled.py#58b95473549b03d62703ae925b712e92bca74c77" }
 dependencies = [
     { name = "argh" },
     { name = "brei" },
