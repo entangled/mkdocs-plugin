@@ -43,3 +43,6 @@ testpaths = [
 [tool.mypy]
 packages = ["mkdocs_entangled"]
 
+[tool.uv.sources]
+entangled-cli = { git = "https://github.com/entangled/entangled.py" }
+
