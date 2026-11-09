@@ -264,7 +264,7 @@ wheels = [
 [[package]]
 name = "entangled-cli"
 version = "2.5.0"
-source = { git = "https://github.com/entangled/entangled.py#36ba5bd84d968341cdd9db4d093650943c14a0fc" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "brei" },
     { name = "click" },
@@ -279,6 +279,10 @@ dependencies = [
     { name = "tomlkit" },
     { name = "typeguard" },
     { name = "watchfiles" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6e/29/ca04e518d00457d7cf071f0bfe292c62977145b191fe780d09b006add774/entangled_cli-2.5.0.tar.gz", hash = "sha256:d1d254a574f3f362142799ce5c140604b2d5cb1619c14b0d63f746c5c891dafb", size = 48305, upload-time = "2026-10-19T14:53:38.801Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4e/02/a90fd872f99c0f7b3a56247aa3a20a43f50aa966e601c4095556a36981c5/entangled_cli-2.5.0-py3-none-any.whl", hash = "sha256:46bacb4ba8236a6e27d17f4129127f805ec1adbf167ecbbe859a6084566f9984", size = 71600, upload-time = "2026-10-19T14:53:37.637Z" },
 ]
 
 [[package]]
@@ -631,7 +635,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "entangled-cli", git = "https://github.com/entangled/entangled.py" },
+    { name = "entangled-cli", specifier = ">=2.5,<3" },
     { name = "mawk", specifier = ">=0.1.7,<0.2" },
     { name = "mkdocs", specifier = ">=1.4.2,<2" },
 ]
