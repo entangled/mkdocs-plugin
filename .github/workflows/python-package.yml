@@ -29,3 +29,6 @@ jobs:
       - name: Run typechecker
         run: |
             uv run pyright mkdocs_entangled
+      - name: Run tests
+        run: |
+            uv run pytest
