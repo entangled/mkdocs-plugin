@@ -12,6 +12,7 @@ from entangled.model import ReferenceMap, Content, PlainText, ReferenceId, CodeB
 from entangled.model.properties import get_attribute, Id, Attribute, Class
 from entangled.config import ConfigUpdate, read_config
 from entangled.interface import Context, read_markdown
+from entangled.io import FileCache
 from repl_session import read_session
 
 
@@ -132,7 +133,7 @@ def include_repl_output(reference_map: ReferenceMap, r: ReferenceId) -> list[Con
 
 
 def on_page_markdown(markdown: str, *, page: Page, config: MkDocsConfig, files: Files) -> str:
-    context = Context() | read_config()
+    context = Context() | read_config(FileCache())
     reference_map, content = read_single_markdown(context, markdown)
     filtered_content = iter_bind(content, partial(compose_filters(add_title, include_repl_output), reference_map))
     return document_to_text(reference_map, filtered_content)

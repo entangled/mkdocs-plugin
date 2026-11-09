@@ -8,7 +8,7 @@ readme = "README.md"
 license = "Apache-2.0"
 dependencies = [
     "mkdocs>=1.4.2,<2",
-    "entangled-cli>=2.4,<3",
+    "entangled-cli>=2.5,<3",
     "mawk>=0.1.7,<0.2",
 ]
 
