@@ -45,7 +45,8 @@ def compose_filter(a: ContentFilter, b: ContentFilter) -> ContentFilter:
 
 
 def compose_filters(*args: ContentFilter) -> ContentFilter:
-    return reduce(compose_filter, args, lambda _, c: [c])
+    identity: ContentFilter = lambda _, c: [c]
+    return reduce(compose_filter, args, identity)
 
 
 def read_single_markdown(ctx: Context, text: str) -> tuple[ReferenceMap, list[Content]]:
